@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Severity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum AlertStatus {
+  ACTIVE
+  RESOLVED
+}
+
+model MonitoredAPI {
+  id                    String   @id @default(cuid())
+  name                  String   @unique
+  url                   String
+  method                String   @default("GET")
+  enabled               Boolean  @default(true)
+  responseTimeThreshold Int      @default(3000)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  checks MonitoringCheck[]
+}
+
+model MonitoringCheck {
+  id               String   @id @default(cuid())
+  apiId            String
+  api              MonitoredAPI @relation(fields: [apiId], references: [id])
+  statusCode       Int?
+  responseTimeMs   Int?
+  recordsReturned  Int?
+  success          Boolean
+  errorMessage     String?
+  checkedAt        DateTime @default(now())
+
+  anomalies Anomaly[]
+}
+
+model Anomaly {
+  id                  String   @id @default(cuid())
+  monitoringCheckId   String
+  monitoringCheck     MonitoringCheck @relation(fields: [monitoringCheckId], references: [id])
+  type                String
+  severity            Severity
+  details             String?
+  createdAt           DateTime @default(now())
+  resolvedAt          DateTime?
+
+  alert Alert?
+}
+
+model Alert {
+  id                 String      @id @default(cuid())
+  anomalyId          String      @unique
+  anomaly            Anomaly     @relation(fields: [anomalyId], references: [id])
+  title               String
+  summary            String
+  possibleCause      String?
+  recommendedAction  String?
+  severity           Severity
+  provider           String?
+  model              String?
+  status             AlertStatus @default(ACTIVE)
+  createdAt          DateTime    @default(now())
+  resolvedAt         DateTime?
+}
