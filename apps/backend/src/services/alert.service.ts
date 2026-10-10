@@ -10,6 +10,7 @@ export interface PersistedAnomaly {
 }
 
 export interface AnomalyBatchContext {
+  apiId: string;
   apiName: string;
   statusCode: number | null;
   responseTimeMs: number | null;
@@ -31,6 +32,22 @@ const SEVERITY_TITLES: Record<Severity, string> = {
 export async function handleAnomalies(context: AnomalyBatchContext): Promise<void> {
   const primaryAnomaly = context.anomalies[0];
   if (!primaryAnomaly) return;
+
+  const existingActiveAlert = await prisma.alert.findFirst({
+    where: {
+      status: "ACTIVE",
+      anomaly: { monitoringCheck: { apiId: context.apiId } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  if (existingActiveAlert) {
+    logger.info("Skipped duplicate alert; API already has an active alert", {
+      api: context.apiName,
+      existingAlertId: existingActiveAlert.id,
+    });
+    return;
+  }
 
   const result = await generateAlert({
     apiName: context.apiName,

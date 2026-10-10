@@ -36,7 +36,7 @@ export function SimulationControls({ onChange }: { onChange?: () => void }) {
       <div className="mb-4 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-pulse" />
         <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
-          Demo / Simulation Controls
+          Simulation Controls
         </h2>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

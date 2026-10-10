@@ -73,6 +73,7 @@ export async function processCheckResult(raw: RawCheckResult): Promise<Processed
       );
 
       await handleAnomalies({
+        apiId: api.id,
         apiName: raw.apiName,
         statusCode: raw.statusCode,
         responseTimeMs: raw.responseTimeMs,
