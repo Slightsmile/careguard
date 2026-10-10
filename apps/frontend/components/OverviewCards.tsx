@@ -43,7 +43,7 @@ export function OverviewCards({ total, healthy, warning, critical, activeAlerts 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
       <Card label="Total APIs" value={total} tone="text-slate-100" index={0} />
-      <Card label="Healthy" value={healthy} tone="text-pulse" pulse index={1} />
+      <Card label="Healthy" value={healthy} tone="text-pulse" index={1} />
       <Card label="Warning" value={warning} tone="text-amber-400" index={2} />
       <Card label="Critical" value={critical} tone="text-rose-400" index={3} />
       <Card label="Active Alerts" value={activeAlerts} tone="text-rose-400" index={4} />

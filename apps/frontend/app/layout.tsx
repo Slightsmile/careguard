@@ -24,6 +24,9 @@ const sans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "CareGuard — API Monitoring",
   description: "Intelligent API Monitoring & Alert System",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

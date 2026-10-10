@@ -6,8 +6,8 @@ COPY apps/backend/package.json apps/backend/package.json
 RUN npm install --workspace=apps/backend
 
 COPY apps/backend apps/backend
-RUN npm run build --workspace=apps/backend
 RUN npx prisma generate --schema=apps/backend/prisma/schema.prisma
+RUN npm run build --workspace=apps/backend
 
 EXPOSE 4000
 CMD ["node", "apps/backend/dist/server.js"]

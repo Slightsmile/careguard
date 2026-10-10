@@ -73,12 +73,7 @@ export default function DashboardPage() {
       <div className="mx-auto max-w-6xl px-6 py-10 sm:px-8">
         <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-pulse/30 bg-pulsedim/40">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-pulsering rounded-full bg-pulse" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-pulse" />
-              </span>
-            </div>
+            <img src="/logo.png" alt="CareGuard" className="h-11 w-11 object-contain" />
             <div>
               <h1 className="font-display text-2xl font-medium italic text-slate-50">CareGuard</h1>
               <p className="text-xs tracking-wide text-slate-500">Intelligent API Monitoring &amp; Alert System</p>
