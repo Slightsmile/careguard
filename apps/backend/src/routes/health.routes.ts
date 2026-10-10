@@ -22,6 +22,7 @@ healthRouter.get("/health", async (_req, res) => {
     database: databaseStatus,
     scheduler: {
       running: scheduler.running,
+      armed: scheduler.armed,
       intervalMs: scheduler.intervalMs,
       lastRunAt: scheduler.lastRunAt,
       nextRunAt: scheduler.nextRunAt,

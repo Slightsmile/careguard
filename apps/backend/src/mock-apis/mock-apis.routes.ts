@@ -11,6 +11,7 @@ import {
 } from "./scenarios";
 import { generateMockResponse } from "./response-generator";
 import { logger } from "../utils/logger";
+import { armScheduler } from "../jobs/scheduler.status";
 
 export const mockApisRouter = Router();
 
@@ -61,6 +62,7 @@ mockApisRouter.post(`/mock/:api/scenario`, (req, res) => {
   }
 
   setScenario(apiKey, parsed.data.scenario as MockScenario);
+  armScheduler();
   logger.info("Mock API scenario changed", { api: apiKey, scenario: parsed.data.scenario });
   res.json({ api: apiKey, scenario: parsed.data.scenario });
 });

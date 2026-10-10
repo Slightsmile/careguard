@@ -4,6 +4,7 @@ import { prisma } from "../utils/prisma";
 import { logger } from "../utils/logger";
 import { processBatch, runEnabledApis, type RawCheckResult } from "../monitoring/monitoring.engine";
 import { asyncHandler } from "../middleware/async-handler";
+import { armScheduler } from "../jobs/scheduler.status";
 
 export const monitorRouter = Router();
 
@@ -53,6 +54,7 @@ monitorRouter.post(
   "/monitor/run",
   asyncHandler(async (_req, res) => {
     logger.info("Manual monitoring run triggered");
+    armScheduler();
 
     const results = await runEnabledApis();
 

@@ -1,8 +1,12 @@
 import { logger } from "../utils/logger";
 import { runEnabledApis } from "../monitoring/monitoring.engine";
-import { initSchedulerStatus, recordRun } from "./scheduler.status";
+import { initSchedulerStatus, isSchedulerArmed, recordRun } from "./scheduler.status";
 
 async function runScheduledCheck(): Promise<void> {
+  if (!isSchedulerArmed()) {
+    return;
+  }
+
   try {
     const results = await runEnabledApis();
     const summary = {
