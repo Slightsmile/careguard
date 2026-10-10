@@ -32,14 +32,19 @@ export function SimulationControls({ onChange }: { onChange?: () => void }) {
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-      <h2 className="mb-3 text-sm font-semibold text-slate-700">Demo / Simulation Controls</h2>
+    <div className="rounded-xl border border-line bg-surface p-5">
+      <div className="mb-4 flex items-center gap-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-pulse" />
+        <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+          Demo / Simulation Controls
+        </h2>
+      </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {MOCK_API_KEYS.map((apiKey) => (
-          <div key={apiKey} className="flex flex-col gap-1">
-            <label className="text-xs font-medium text-slate-500">{API_LABELS[apiKey]}</label>
+          <div key={apiKey} className="flex flex-col gap-1.5">
+            <label className="text-xs text-slate-400">{API_LABELS[apiKey]}</label>
             <select
-              className="rounded border border-slate-300 px-2 py-1 text-sm disabled:opacity-50"
+              className="rounded-lg border border-line bg-raised px-3 py-2 text-sm text-slate-200 outline-none transition-colors focus:border-pulse/50 disabled:opacity-50"
               value={selected[apiKey]}
               disabled={pending === apiKey}
               onChange={(e) => applyScenario(apiKey, e.target.value as MockScenario)}

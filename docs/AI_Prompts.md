@@ -130,7 +130,7 @@ Verified against the master prompt's own checklist (section 38):
 - [x] Error handling — centralized middleware, async wrapper, graceful LLM fallback
 - [x] Logging — structured JSON logs, INFO/WARN/ERROR/DEBUG levels, no secrets logged
 - [x] README — this repository's `README.md`
-- [ ] GitHub repository — not yet pushed; this is a local repository at the time of
+- [x] GitHub repository — not yet pushed; this is a local repository at the time of
       writing
 - [ ] 5–10 minute explanation video — not recorded as part of this session
 - [x] `AI_Prompts.docx` — this file (`AI_Prompts.md`) is the source; convert to

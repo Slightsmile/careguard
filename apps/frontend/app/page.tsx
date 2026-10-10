@@ -69,30 +69,43 @@ export default function DashboardPage() {
   const critical = rows.filter((r) => r.severity === "CRITICAL").length;
 
   return (
-    <main className="min-h-screen bg-slate-50 p-8">
-      <div className="mx-auto max-w-6xl space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-900">CareGuard</h1>
-            <p className="text-sm text-slate-500">Intelligent API Monitoring &amp; Alert System</p>
+    <main className="relative min-h-screen bg-grid">
+      <div className="mx-auto max-w-6xl px-6 py-10 sm:px-8">
+        <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-pulse/30 bg-pulsedim/40">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-pulsering rounded-full bg-pulse" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-pulse" />
+              </span>
+            </div>
+            <div>
+              <h1 className="font-display text-2xl font-medium italic text-slate-50">CareGuard</h1>
+              <p className="text-xs tracking-wide text-slate-500">Intelligent API Monitoring &amp; Alert System</p>
+            </div>
           </div>
           <button
             onClick={handleRunMonitoring}
             disabled={running}
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
+            className="group relative overflow-hidden rounded-lg border border-pulse/30 bg-pulsedim/30 px-4 py-2.5 text-sm font-medium text-pulse shadow-glow transition-all hover:border-pulse/50 hover:bg-pulsedim/50 disabled:opacity-50"
           >
-            {running ? "Running..." : "Run Monitoring"}
+            {running ? "Running…" : "Run Monitoring"}
           </button>
-        </div>
+        </header>
 
         {error && (
-          <div className="rounded-md border border-red-300 bg-red-50 px-4 py-2 text-sm text-red-700">
+          <div className="mb-6 rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-300">
             {error}
           </div>
         )}
 
-        {!loading && (
-          <>
+        {loading ? (
+          <div className="flex items-center gap-2 py-16 text-sm text-slate-500">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-pulse" />
+            Connecting to CareGuard…
+          </div>
+        ) : (
+          <div className="space-y-8">
             <OverviewCards
               total={rows.length}
               healthy={healthy}
@@ -104,15 +117,19 @@ export default function DashboardPage() {
             <SimulationControls onChange={loadData} />
 
             <section>
-              <h2 className="mb-2 text-sm font-semibold text-slate-700">API Status</h2>
+              <h2 className="mb-3 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+                API Status
+              </h2>
               <ApiStatusTable rows={rows} />
             </section>
 
             <section>
-              <h2 className="mb-2 text-sm font-semibold text-slate-700">Active Alerts</h2>
+              <h2 className="mb-3 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+                Active Alerts
+              </h2>
               <AlertsTable alerts={alerts} />
             </section>
-          </>
+          </div>
         )}
       </div>
     </main>
